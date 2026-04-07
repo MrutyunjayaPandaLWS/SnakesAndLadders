@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="BoardCVC" customModule="Snake_Ladder" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="164" height="174"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="164" height="174"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdW-iS-05Q" customClass="GradientView" customModule="Snake_Ladder" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="164" height="174"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8TV-9e-muN">
+                                <rect key="frame" x="12" y="11.999999999999998" width="144" height="19.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="8TV-9e-muN" firstAttribute="leading" secondItem="bdW-iS-05Q" secondAttribute="leading" constant="12" id="Sq7-YA-Gy1"/>
+                            <constraint firstAttribute="trailing" secondItem="8TV-9e-muN" secondAttribute="trailing" constant="8" id="Y6p-ky-EvZ"/>
+                            <constraint firstItem="8TV-9e-muN" firstAttribute="top" secondItem="bdW-iS-05Q" secondAttribute="top" constant="12" id="YT5-NW-ygP"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                <color key="value" name="boardCellBg1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                <color key="value" name="boardCellBg2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="bdW-iS-05Q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1sb-GN-T6n"/>
+                <constraint firstItem="bdW-iS-05Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ouc-Ai-qct"/>
+                <constraint firstAttribute="trailing" secondItem="bdW-iS-05Q" secondAttribute="trailing" id="WAk-ta-uMs"/>
+                <constraint firstAttribute="bottom" secondItem="bdW-iS-05Q" secondAttribute="bottom" id="vWR-CS-zSa"/>
+            </constraints>
+            <size key="customSize" width="164" height="174"/>
+            <connections>
+                <outlet property="bg_View" destination="bdW-iS-05Q" id="dwU-dj-qy8"/>
+                <outlet property="num_Lbl" destination="8TV-9e-muN" id="tx5-FU-fhL"/>
+            </connections>
+            <point key="canvasLocation" x="-174.04580152671755" y="178.87323943661974"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="boardCellBg1">
+            <color red="0.69800001382827759" green="0.52899998426437378" blue="0.25499999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boardCellBg2">
+            <color red="0.83921568627450982" green="0.76078431372549016" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
