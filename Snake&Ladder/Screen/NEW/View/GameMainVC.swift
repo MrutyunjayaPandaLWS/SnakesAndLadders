@@ -98,7 +98,7 @@ class GameMainVC: UIViewController {
         setupSnakeLadderOverlay()
         setupPlayerAvatars()
         setupDiceResultLabels()
-        setupTokens()           // tokens added + bringSubviewToFront done here once
+        setupTokens()
         updateActivePlayerUI()
     }
     
