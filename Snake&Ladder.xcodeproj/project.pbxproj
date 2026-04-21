@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84BEB1782F9622D300CFE1AC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BEB1762F9622D300CFE1AC /* DashboardVC.swift */; };
+		84BEB1792F9622D300CFE1AC /* DashboardVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BEB1772F9622D300CFE1AC /* DashboardVC.xib */; };
 		84C083582F7B96C7007200BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C0834F2F7B96C7007200BE /* Assets.xcassets */; };
 		84C0835A2F7B96C7007200BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C083522F7B96C7007200BE /* LaunchScreen.storyboard */; };
 		84C0835C2F7B96C7007200BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0834E2F7B96C7007200BE /* AppDelegate.swift */; };
@@ -17,18 +19,6 @@
 		84C083782F7BFE6C007200BE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083772F7BFE6B007200BE /* Helpers.swift */; };
 		84C0837B2F7BFEE4007200BE /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0837A2F7BFEE3007200BE /* Colors.swift */; };
 		84C0837D2F7BFEEC007200BE /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0837C2F7BFEEB007200BE /* Images.swift */; };
-		84C0837F2F7BFF09007200BE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0837E2F7BFF09007200BE /* Player.swift */; };
-		84C083812F7BFF12007200BE /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083802F7BFF12007200BE /* Board.swift */; };
-		84C083832F7BFF1B007200BE /* Snake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083822F7BFF18007200BE /* Snake.swift */; };
-		84C083852F7BFF23007200BE /* Ladder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083842F7BFF22007200BE /* Ladder.swift */; };
-		84C083882F7BFF36007200BE /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083872F7BFF34007200BE /* GameViewModel.swift */; };
-		84C0838B2F7BFF4F007200BE /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0838A2F7BFF48007200BE /* GameVC.swift */; };
-		84C0838D2F7BFF5B007200BE /* BoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0838C2F7BFF59007200BE /* BoardCell.swift */; };
-		84C0838F2F7BFF67007200BE /* PlayerTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0838E2F7BFF65007200BE /* PlayerTokenView.swift */; };
-		84C083912F7BFF6F007200BE /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083902F7BFF6E007200BE /* DiceView.swift */; };
-		84C083932F7BFF76007200BE /* BoardOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083922F7BFF75007200BE /* BoardOverlayView.swift */; };
-		84C083962F7BFF8F007200BE /* GameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C083952F7BFF8E007200BE /* GameCoordinator.swift */; };
-		84C0839A2F7C03F9007200BE /* GameVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C083982F7C03F9007200BE /* GameVC.xib */; };
 		84F8473A2F7CDE0E004B31D2 /* GameMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F847392F7CDE0E004B31D2 /* GameMainVC.xib */; };
 		84F8473B2F7CDE0E004B31D2 /* GameMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F847382F7CDE0E004B31D2 /* GameMainVC.swift */; };
 		84F8474A2F7CE334004B31D2 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8473D2F7CE334004B31D2 /* GradientButton.swift */; };
@@ -61,6 +51,8 @@
 		4F345A01F476D2EC1BB81DD3 /* Pods_Snake_Ladder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snake_Ladder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7167C77EBB84751990E4B8CE /* Pods-Snake&Ladder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snake&Ladder.debug.xcconfig"; path = "Target Support Files/Pods-Snake&Ladder/Pods-Snake&Ladder.debug.xcconfig"; sourceTree = "<group>"; };
 		8377B637D68D1F3CBB0A8336 /* Pods-Snake&Ladder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snake&Ladder.release.xcconfig"; path = "Target Support Files/Pods-Snake&Ladder/Pods-Snake&Ladder.release.xcconfig"; sourceTree = "<group>"; };
+		84BEB1762F9622D300CFE1AC /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		84BEB1772F9622D300CFE1AC /* DashboardVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardVC.xib; sourceTree = "<group>"; };
 		84C083362F7B96B7007200BE /* Snake&Ladder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snake&Ladder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C0834E2F7B96C7007200BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84C0834F2F7B96C7007200BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,18 +65,6 @@
 		84C083772F7BFE6B007200BE /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		84C0837A2F7BFEE3007200BE /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		84C0837C2F7BFEEB007200BE /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
-		84C0837E2F7BFF09007200BE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		84C083802F7BFF12007200BE /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
-		84C083822F7BFF18007200BE /* Snake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snake.swift; sourceTree = "<group>"; };
-		84C083842F7BFF22007200BE /* Ladder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ladder.swift; sourceTree = "<group>"; };
-		84C083872F7BFF34007200BE /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
-		84C0838A2F7BFF48007200BE /* GameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
-		84C0838C2F7BFF59007200BE /* BoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCell.swift; sourceTree = "<group>"; };
-		84C0838E2F7BFF65007200BE /* PlayerTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTokenView.swift; sourceTree = "<group>"; };
-		84C083902F7BFF6E007200BE /* DiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceView.swift; sourceTree = "<group>"; };
-		84C083922F7BFF75007200BE /* BoardOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardOverlayView.swift; sourceTree = "<group>"; };
-		84C083952F7BFF8E007200BE /* GameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCoordinator.swift; sourceTree = "<group>"; };
-		84C083982F7C03F9007200BE /* GameVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameVC.xib; sourceTree = "<group>"; };
 		84F847382F7CDE0E004B31D2 /* GameMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMainVC.swift; sourceTree = "<group>"; };
 		84F847392F7CDE0E004B31D2 /* GameMainVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameMainVC.xib; sourceTree = "<group>"; };
 		84F8473C2F7CE334004B31D2 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
@@ -124,6 +104,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84BEB1742F96228500CFE1AC /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				84BEB1752F9622A900CFE1AC /* View */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		84BEB1752F9622A900CFE1AC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84BEB1762F9622D300CFE1AC /* DashboardVC.swift */,
+				84BEB1772F9622D300CFE1AC /* DashboardVC.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		84C0832D2F7B96B7007200BE = {
 			isa = PBXGroup;
 			children = (
@@ -173,8 +170,8 @@
 		84C083622F7B96FE007200BE /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				84F847342F7CDDA9004B31D2 /* NEW */,
-				84F847332F7CDDA1004B31D2 /* OLD */,
+				84BEB1742F96228500CFE1AC /* Dashboard */,
+				84F847342F7CDDA9004B31D2 /* Game */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -196,17 +193,6 @@
 				84C083612F7B96F1007200BE /* Storyboard */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		84C0836C2F7BFD91007200BE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				84C083842F7BFF22007200BE /* Ladder.swift */,
-				84C083822F7BFF18007200BE /* Snake.swift */,
-				84C083802F7BFF12007200BE /* Board.swift */,
-				84C0837E2F7BFF09007200BE /* Player.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		84C0836D2F7BFDEC007200BE /* Extensions */ = {
@@ -240,52 +226,12 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		84C083862F7BFF2D007200BE /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				84C083872F7BFF34007200BE /* GameViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		84C083892F7BFF3E007200BE /* View */ = {
-			isa = PBXGroup;
-			children = (
-				84C083922F7BFF75007200BE /* BoardOverlayView.swift */,
-				84C083902F7BFF6E007200BE /* DiceView.swift */,
-				84C0838E2F7BFF65007200BE /* PlayerTokenView.swift */,
-				84C0838C2F7BFF59007200BE /* BoardCell.swift */,
-				84C0838A2F7BFF48007200BE /* GameVC.swift */,
-				84C083982F7C03F9007200BE /* GameVC.xib */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		84C083942F7BFF81007200BE /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				84C083952F7BFF8E007200BE /* GameCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		84F847332F7CDDA1004B31D2 /* OLD */ = {
-			isa = PBXGroup;
-			children = (
-				84C083942F7BFF81007200BE /* Coordinator */,
-				84C0836C2F7BFD91007200BE /* Model */,
-				84C083892F7BFF3E007200BE /* View */,
-				84C083862F7BFF2D007200BE /* ViewModel */,
-			);
-			path = OLD;
-			sourceTree = "<group>";
-		};
-		84F847342F7CDDA9004B31D2 /* NEW */ = {
+		84F847342F7CDDA9004B31D2 /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				84F847352F7CDDC2004B31D2 /* View */,
 			);
-			path = NEW;
+			path = Game;
 			sourceTree = "<group>";
 		};
 		84F847352F7CDDC2004B31D2 /* View */ = {
@@ -436,8 +382,8 @@
 				84F847642F7CFA38004B31D2 /* dice6.gif in Resources */,
 				84F847652F7CFA38004B31D2 /* dice3.gif in Resources */,
 				84F847662F7CFA38004B31D2 /* dice5.gif in Resources */,
-				84C0839A2F7C03F9007200BE /* GameVC.xib in Resources */,
 				84F8476B2F7D2616004B31D2 /* BoardCVC.xib in Resources */,
+				84BEB1792F9622D300CFE1AC /* DashboardVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,11 +440,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84C083932F7BFF76007200BE /* BoardOverlayView.swift in Sources */,
-				84C083962F7BFF8F007200BE /* GameCoordinator.swift in Sources */,
 				84C0835C2F7B96C7007200BE /* AppDelegate.swift in Sources */,
 				84C0837B2F7BFEE4007200BE /* Colors.swift in Sources */,
-				84C083812F7BFF12007200BE /* Board.swift in Sources */,
 				84F8474A2F7CE334004B31D2 /* GradientButton.swift in Sources */,
 				84F8474B2F7CE334004B31D2 /* UIButtonDesignable.swift in Sources */,
 				84F8476A2F7D2616004B31D2 /* BoardCVC.swift in Sources */,
@@ -515,18 +458,11 @@
 				84F847552F7CE334004B31D2 /* GradientLabel.swift in Sources */,
 				84F847562F7CE334004B31D2 /* UIImageView.swift in Sources */,
 				84C083782F7BFE6C007200BE /* Helpers.swift in Sources */,
-				84C0838B2F7BFF4F007200BE /* GameVC.swift in Sources */,
 				84C0835D2F7B96C7007200BE /* SceneDelegate.swift in Sources */,
+				84BEB1782F9622D300CFE1AC /* DashboardVC.swift in Sources */,
 				84C0837D2F7BFEEC007200BE /* Images.swift in Sources */,
-				84C083882F7BFF36007200BE /* GameViewModel.swift in Sources */,
 				84C083732F7BFE46007200BE /* UICollectionView+Extensions.swift in Sources */,
-				84C0838F2F7BFF67007200BE /* PlayerTokenView.swift in Sources */,
-				84C083912F7BFF6F007200BE /* DiceView.swift in Sources */,
-				84C083852F7BFF23007200BE /* Ladder.swift in Sources */,
-				84C0838D2F7BFF5B007200BE /* BoardCell.swift in Sources */,
 				84C083712F7BFE37007200BE /* UIView+Extensions.swift in Sources */,
-				84C0837F2F7BFF09007200BE /* Player.swift in Sources */,
-				84C083832F7BFF1B007200BE /* Snake.swift in Sources */,
 				84C083762F7BFE65007200BE /* Constants.swift in Sources */,
 				84F8473B2F7CDE0E004B31D2 /* GameMainVC.swift in Sources */,
 				84F847732F7D2900004B31D2 /* BoardSnakeLadderOverlayView.swift in Sources */,

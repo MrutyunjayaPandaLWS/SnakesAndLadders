@@ -20,14 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let players = [
-            Player(id: 1, position: 0, color: .red),
-            Player(id: 2, position: 0, color: .blue)
-        ]
-        
-        let viewModel = GameViewModel(players: players)
-//        let gameVC = GameVC(viewModel: viewModel)
-        let gameVC = GameMainVC()
+        let gameVC = DashboardVC()
         
         let nav = UINavigationController(rootViewController: gameVC)
         

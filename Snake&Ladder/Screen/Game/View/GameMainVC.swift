@@ -41,6 +41,7 @@ class GameMainVC: UIViewController {
     @IBOutlet weak var board_CV: UICollectionView!
     
     private let snakeLadderOverlay = BoardSnakeLadderOverlayView()
+
     // MARK: - Game State
     
     var currentPlayerIndex = 0
@@ -48,35 +49,47 @@ class GameMainVC: UIViewController {
     var playerTokens: [UIView] = []
     private var gameFinished = false
     
-    /// Must match UICollectionViewFlowLayout spacing (contiguous cells, no gaps).
     private let gridSpacing: CGFloat = 0
-    
-    /// Prevents viewDidLayoutSubviews from snapping pawns back while a move is animating.
     private var isAnimatingMove = false
     
-    /// Last completed dice value per player.
-    private var lastDiceRoll: [Int?] = [1, 2, nil, nil]
-    private var diceResultLabels: [UILabel] = []
-    
-    /// Head → tail (matches reference board)
     let snakes: [Int: Int] = [
-        83: 2,
-        62: 42,
-        86: 72,
-        54: 44,
-        32: 8
+        98: 2,
+        61: 40,
+        85: 52,
+        54: 16,
+        32: 7
     ]
     
     let ladders: [Int: Int] = [
-        5: 23,
-        14: 56,
-        31: 51,
-        44: 77,
-        60: 82,
-        73: 93
+        3: 24,
+        14: 77,
+        30: 51,
+        41: 62,
+        53: 72,
+        88: 93
     ]
     
     private var didInitialLayout = false
+    
+    var gameMode: GameMode = .fourPlayer
+    
+    // MARK: - Derived from gameMode
+    
+    /// Number of active players for the current mode.
+    private var activePlayerCount: Int {
+        switch gameMode {
+        case .twoPlayer:   return 2
+        case .threePlayer: return 3
+        case .fourPlayer:  return 4
+        case .versusAI:    return 2
+        }
+    }
+    
+    /// Whether the current player is controlled by the AI.
+    private var isCurrentPlayerAI: Bool {
+        guard gameMode == .versusAI else { return false }
+        return currentPlayerIndex == 1   // player 2 (index 1) is AI
+    }
     
     // MARK: - Lifecycle
     
@@ -93,13 +106,13 @@ class GameMainVC: UIViewController {
             layout.minimumLineSpacing = 0
             layout.sectionInset = .zero
         }
-        
+        setupGameMode()
         setupCollectionView()
         setupSnakeLadderOverlay()
         setupPlayerAvatars()
-        setupDiceResultLabels()
         setupTokens()
         updateActivePlayerUI()
+        triggerAITurnIfNeeded()
     }
     
     override func viewDidLayoutSubviews() {
@@ -115,15 +128,13 @@ class GameMainVC: UIViewController {
             board_CV.reloadData()
         }
         
-        // FIX: Only snap tokens when no animation is running AND layout is stable.
-        // Removed bringSubviewToFront from here — it was triggering extra layout
-        // passes and causing visible pawn jumps during animation.
         if !isAnimatingMove && didInitialLayout {
             layoutTokensAtCurrentPositions()
         }
     }
-        
-        // MARK: - IBActions
+    
+    // MARK: - IBActions
+    
     @IBAction func didTapP1DiceBtn(_ sender: UIButton) {
         handleDiceRoll(for: 0, imageView: p1Dice_ImgView)
     }
@@ -139,12 +150,36 @@ class GameMainVC: UIViewController {
     @IBAction func didTapP4DiceBtn(_ sender: UIButton) {
         handleDiceRoll(for: 3, imageView: p4Dice_ImgView)
     }
-    
 }
 
 // MARK: - Setup
 
 extension GameMainVC {
+    
+    func setupGameMode() {
+        switch gameMode {
+        case .twoPlayer:
+            p1Main_View.isHidden = false
+            p2Main_View.isHidden = false
+            p3Main_View.isHidden = true
+            p4Main_View.isHidden = true
+        case .threePlayer:
+            p1Main_View.isHidden = false
+            p2Main_View.isHidden = false
+            p3Main_View.isHidden = false
+            p4Main_View.isHidden = true
+        case .fourPlayer:
+            p1Main_View.isHidden = false
+            p2Main_View.isHidden = false
+            p3Main_View.isHidden = false
+            p4Main_View.isHidden = false
+        case .versusAI:
+            p1Main_View.isHidden = false
+            p2Main_View.isHidden = false
+            p3Main_View.isHidden = true
+            p4Main_View.isHidden = true
+        }
+    }
     
     func setupSnakeLadderOverlay() {
         snakeLadderOverlay.translatesAutoresizingMaskIntoConstraints = false
@@ -168,53 +203,26 @@ extension GameMainVC {
             iv?.contentMode = .scaleAspectFill
             iv?.clipsToBounds = true
         }
-    }
-    
-    func setupDiceResultLabels() {
-        let diceBgs: [UIView?] = [p1DiceBg_View, p2DiceBg_View, p3DiceBg_View, p4DiceBg_View]
-        let diceButtons: [UIButton?] = [p1Dice_Btn, p2Dice_Btn, p3Dice_Btn, p4Dice_Btn]
-        diceResultLabels = []
-        for i in 0..<4 {
-            guard let container = diceBgs[i] else { continue }
-            let lbl = UILabel()
-            lbl.translatesAutoresizingMaskIntoConstraints = false
-            lbl.font = .systemFont(ofSize: 28, weight: .bold)
-            lbl.textColor = .white
-            lbl.textAlignment = .center
-            lbl.isUserInteractionEnabled = false
-            lbl.layer.shadowColor = UIColor.black.cgColor
-            lbl.layer.shadowOffset = CGSize(width: 0, height: 1)
-            lbl.layer.shadowRadius = 2
-            lbl.layer.shadowOpacity = 0.4
-            if let btn = diceButtons[i] {
-                container.insertSubview(lbl, belowSubview: btn)
-            } else {
-                container.addSubview(lbl)
-            }
-            NSLayoutConstraint.activate([
-                lbl.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-                lbl.centerYAnchor.constraint(equalTo: container.centerYAnchor)
-            ])
-            diceResultLabels.append(lbl)
+        // In versusAI mode, label the second player as "AI"
+        if gameMode == .versusAI {
+            p2Title_Lbl.text = "AI"
         }
     }
     
     func setupTokens() {
         let colors: [UIColor] = [
-            UIColor(red: 0.92, green: 0.22, blue: 0.22, alpha: 1),    // Red
-            UIColor(red: 0.18, green: 0.45, blue: 0.92, alpha: 1),    // Blue
-            UIColor(red: 0.98, green: 0.82, blue: 0.22, alpha: 1),    // Yellow
-            UIColor(red: 0.18, green: 0.78, blue: 0.34, alpha: 1)     // Green
+            UIColor(red: 0.92, green: 0.22, blue: 0.22, alpha: 1),
+            UIColor(red: 0.18, green: 0.45, blue: 0.92, alpha: 1),
+            UIColor(red: 0.98, green: 0.82, blue: 0.22, alpha: 1),
+            UIColor(red: 0.18, green: 0.78, blue: 0.34, alpha: 1)
         ]
-        for i in 0..<4 {
+        // Only create tokens for active players
+        for i in 0..<activePlayerCount {
             let pawn = PawnView(color: colors[i])
             pawn.bounds = CGRect(x: 0, y: 0, width: 22, height: 28)
             boardBg_View.addSubview(pawn)
             playerTokens.append(pawn)
         }
-        // FIX: bringSubviewToFront done once here at setup, NOT in viewDidLayoutSubviews.
-        // Calling it in viewDidLayoutSubviews was triggering extra layout passes,
-        // causing pawn positions to snap/jump mid-animation.
         boardBg_View.bringSubviewToFront(snakeLadderOverlay)
         playerTokens.forEach { boardBg_View.bringSubviewToFront($0) }
     }
@@ -224,46 +232,42 @@ extension GameMainVC {
 
 extension GameMainVC {
     
-    /// Shows last dice for inactive players; hides during the active player's roll until value is known.
-    func updateDiceRollDisplay() {
-        guard diceResultLabels.count == 4 else { return }
-        for i in 0..<4 {
-            let active = i == currentPlayerIndex && !gameFinished
-            let value = lastDiceRoll[i]
-            let showNumber: Bool
-            if let v = value {
-                if active {
-                    showNumber = isAnimatingMove
-                } else {
-                    showNumber = true
-                }
-                diceResultLabels[i].text = "\(v)"
-            } else {
-                showNumber = false
-                diceResultLabels[i].text = nil
-            }
-            diceResultLabels[i].isHidden = !showNumber
-        }
-    }
-    
     func updateActivePlayerUI() {
-        let mains = [p1Main_View, p2Main_View, p3Main_View, p4Main_View]
+        let mains       = [p1Main_View, p2Main_View, p3Main_View, p4Main_View]
         let diceButtons = [p1Dice_Btn, p2Dice_Btn, p3Dice_Btn, p4Dice_Btn]
-        let diceImages = [p1Dice_ImgView, p2Dice_ImgView, p3Dice_ImgView, p4Dice_ImgView]
+        let diceImages  = [p1Dice_ImgView, p2Dice_ImgView, p3Dice_ImgView, p4Dice_ImgView]
+
         for i in 0..<4 {
             let active = i == currentPlayerIndex && !gameFinished
             mains[i]?.layer.borderWidth = active ? 3 : 0
             mains[i]?.layer.borderColor = UIColor(red: 1, green: 0.85, blue: 0.2, alpha: 1).cgColor
             mains[i]?.layer.cornerRadius = 8
             mains[i]?.clipsToBounds = true
-            let waitingToTap = active && !isAnimatingMove
+
+            // AI turn: show no "?" prompt on the AI's dice button
+            let isAISlot = (gameMode == .versusAI && i == 1)
+            let waitingToTap = active && !isAnimatingMove && !isAISlot
             diceButtons[i]?.setTitle(waitingToTap ? "?" : nil, for: .normal)
             diceButtons[i]?.setTitleColor(.white, for: .normal)
             diceButtons[i]?.titleLabel?.font = .systemFont(ofSize: 32, weight: .bold)
-            diceImages[i]?.alpha = active && waitingToTap ? 0.35 : 1
-            diceButtons[i]?.isEnabled = !gameFinished && active && !isAnimatingMove
+            diceImages[i]?.isHidden = !active
+            diceImages[i]?.alpha = waitingToTap ? 0.35 : 1.0
+
+            // Human can only tap their own button when it is their turn
+            let isHumanTurn = active && !isAnimatingMove && !isAISlot
+            diceButtons[i]?.isEnabled = !gameFinished && isHumanTurn
         }
-        updateDiceRollDisplay()
+        updateTurnLabel()
+    }
+
+    /// Keeps the turn label accurate for all modes, including VS AI.
+    private func updateTurnLabel() {
+        if gameFinished { return }
+        if gameMode == .versusAI {
+            playersTurn_Lbl.text = currentPlayerIndex == 0 ? "Your Turn" : "AI's Turn"
+        } else {
+            playersTurn_Lbl.text = "Player \(currentPlayerIndex + 1)'s Turn"
+        }
     }
     
     func layoutTokensAtCurrentPositions() {
@@ -287,10 +291,9 @@ extension GameMainVC {
         )
     }
     
-    /// Row from top of collection view (0 = top / tile 100 area), column 0 = left.
     func rowColFromTop(for number: Int) -> (rowTop: Int, col: Int) {
         let rowFromBottom = (number - 1) / 10
-        let offsetInRow = (number - 1) % 10
+        let offsetInRow   = (number - 1) % 10
         let col: Int
         if rowFromBottom % 2 == 0 {
             col = offsetInRow
@@ -301,11 +304,8 @@ extension GameMainVC {
         return (rowTop, col)
     }
     
-    /// Token center in boardBg_View coordinates (includes small offset when sharing a cell).
     func centerForBoardNumber(_ number: Int, playerIndex: Int) -> CGPoint {
         let (rowTop, col) = rowColFromTop(for: number)
-        // FIX: use cellSize() for both x and y so tokens sit correctly on
-        // non-square boards (previously both axes used width / 10).
         let size = cellSize()
         let x = CGFloat(col) * (size.width + gridSpacing) + size.width / 2
         let y = CGFloat(rowTop) * (size.height + gridSpacing) + size.height / 2
@@ -359,45 +359,120 @@ extension GameMainVC {
     func handleDiceRoll(for playerIndex: Int, imageView: UIImageView) {
         guard !gameFinished, !isAnimatingMove, currentPlayerIndex == playerIndex else { return }
         isAnimatingMove = true
-        lastDiceRoll[playerIndex] = nil
-        updateDiceRollDisplay()
         updateActivePlayerUI()
-        
-        loadGif(into: imageView, name: "dice\(playerIndex + 1).gif")
-        
+
+        let diceValue = Int.random(in: 1...6)
+        loadGif(into: imageView, name: "dice\(diceValue).gif")
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            let diceValue = Int.random(in: 1...6)
             let old = self.playerPositions[playerIndex]
+            let isBonusSpin = (diceValue == 1 || diceValue == 6)
+
             guard old + diceValue <= 100 else {
                 self.isAnimatingMove = false
-                self.switchTurn()
+                if isBonusSpin {
+                    self.showBonusSpinBanner(for: playerIndex)
+                } else {
+                    self.switchTurn()
+                }
                 self.updateActivePlayerUI()
                 return
             }
-            self.lastDiceRoll[playerIndex] = diceValue
-            self.updateDiceRollDisplay()
+
             self.updateActivePlayerUI()
-            self.movePlayer(index: playerIndex, steps: diceValue)
+            self.movePlayer(index: playerIndex, steps: diceValue, bonusSpin: isBonusSpin)
+        }
+    }
+
+    func switchTurn(bonusSpin: Bool = false) {
+        if playerPositions[currentPlayerIndex] == 100 {
+            gameFinished = true
+            if gameMode == .versusAI {
+                playersTurn_Lbl.text = currentPlayerIndex == 0 ? "You Win! 🎉" : "AI Wins!"
+            } else {
+                playersTurn_Lbl.text = "Player \(currentPlayerIndex + 1) Wins! 🎉"
+            }
+            updateActivePlayerUI()
+            return
+        }
+
+        if bonusSpin {
+            // Same player gets another turn — just refresh UI and re-trigger AI if needed.
+            showBonusSpinBanner(for: currentPlayerIndex)
+            return
+        }
+
+        // Cycle only through active players
+        currentPlayerIndex = (currentPlayerIndex + 1) % activePlayerCount
+        updateActivePlayerUI()
+        // If it's now the AI's turn, trigger it automatically
+        triggerAITurnIfNeeded()
+    }
+
+    /// Shows a brief "Bonus Spin!" banner then re-enables the current player's turn.
+    private func showBonusSpinBanner(for playerIndex: Int) {
+        let name: String
+        if gameMode == .versusAI {
+            name = playerIndex == 0 ? "You get" : "AI gets"
+        } else {
+            name = "Player \(playerIndex + 1) gets"
+        }
+        playersTurn_Lbl.text = "\(name) a Bonus Spin! 🎲"
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
+            guard let self = self, !self.gameFinished else { return }
+            self.updateActivePlayerUI()          // restores normal turn label + enables button
+            self.triggerAITurnIfNeeded()         // auto-rolls for AI if it's the AI's bonus spin
         }
     }
     
-    func movePlayer(index: Int, steps: Int) {
+    /// Fires an AI dice roll automatically after a short pause, if it is the AI's turn.
+    func triggerAITurnIfNeeded() {
+        guard !gameFinished, isCurrentPlayerAI else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
+            guard let self = self, !self.gameFinished, self.isCurrentPlayerAI, !self.isAnimatingMove else { return }
+            self.handleDiceRoll(for: self.currentPlayerIndex, imageView: self.p2Dice_ImgView)
+        }
+    }
+}
+
+// MARK: - Move Animations
+
+extension GameMainVC {
+    
+    func animateWalk(index: Int, path: [Int], stepDuration: Double = 0.11, completion: @escaping () -> Void) {
+        guard !path.isEmpty else { completion(); return }
+        var stepIndex = 0
+        func next() {
+            let num   = path[stepIndex]
+            let point = self.centerForBoardNumber(num, playerIndex: index)
+            UIView.animate(withDuration: stepDuration, delay: 0, options: [.curveEaseInOut], animations: {
+                self.playerTokens[index].center = point
+            }, completion: { _ in
+                stepIndex += 1
+                if stepIndex < path.count { next() } else { completion() }
+            })
+        }
+        next()
+    }
+    
+    func movePlayer(index: Int, steps: Int, bonusSpin: Bool = false) {
         let old = playerPositions[index]
         let afterDice = old + steps
         if afterDice > 100 { return }
-        
+
         let walkPath = Array((old + 1)...afterDice)
         let jumps    = chainJumps(from: afterDice)
         let finalPos = resolveChain(from: afterDice)
-        
+
         let finishMove = { [weak self] in
             guard let self = self else { return }
             self.playerPositions[index] = finalPos
             self.layoutTokensAtCurrentPositions()
             self.isAnimatingMove = false
-            self.switchTurn()
+            self.switchTurn(bonusSpin: bonusSpin)
         }
-        
+
         animateWalk(index: index, path: walkPath) {
             if jumps.isEmpty {
                 finishMove()
@@ -409,28 +484,18 @@ extension GameMainVC {
         }
     }
     
-    func animateWalk(index: Int, path: [Int], completion: @escaping () -> Void) {
-        guard !path.isEmpty else { completion(); return }
-        var stepIndex = 0
-        func next() {
-            let num   = path[stepIndex]
-            let point = self.centerForBoardNumber(num, playerIndex: index)
-            UIView.animate(withDuration: 0.11, delay: 0, options: [.curveEaseInOut], animations: {
-                self.playerTokens[index].center = point
-            }, completion: { _ in
-                stepIndex += 1
-                if stepIndex < path.count { next() } else { completion() }
-            })
-        }
-        next()
-    }
-    
     func animateJumpSegments(index: Int, jumps: [(Int, Int)], completion: @escaping () -> Void) {
         guard !jumps.isEmpty else { completion(); return }
         var jumpIdx = 0
         func runNext() {
-            let segment = self.numberLinePath(from: jumps[jumpIdx].0, to: jumps[jumpIdx].1)
-            self.animateWalk(index: index, path: segment) {
+            let (from, to) = jumps[jumpIdx]
+            let isLadder = ladders[from] == to
+            animateSlidePath(
+                index: index,
+                from: centerForBoardNumber(from, playerIndex: index),
+                to:   centerForBoardNumber(to,   playerIndex: index),
+                duration: isLadder ? 1.2 : 0.8
+            ) {
                 jumpIdx += 1
                 if jumpIdx < jumps.count { runNext() } else { completion() }
             }
@@ -438,16 +503,11 @@ extension GameMainVC {
         runNext()
     }
     
-    func switchTurn() {
-        if playerPositions[currentPlayerIndex] == 100 {
-            gameFinished = true
-            playersTurn_Lbl.text = "Player \(currentPlayerIndex + 1) wins!"
-            updateActivePlayerUI()
-            return
-        }
-        currentPlayerIndex = (currentPlayerIndex + 1) % 4
-        playersTurn_Lbl.text = "Player \(currentPlayerIndex + 1)'s Turn"
-        updateActivePlayerUI()
+    func animateSlidePath(index: Int, from: CGPoint, to: CGPoint, duration: TimeInterval, completion: @escaping () -> Void) {
+        playerTokens[index].center = from
+        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
+            self.playerTokens[index].center = to
+        }, completion: { _ in completion() })
     }
 }
 
@@ -496,10 +556,9 @@ extension GameMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         return CGSize(width: width, height: height)
     }
     
-    /// Collection row 0 is the top of the screen (91–100); row 9 is the bottom (1–10).
     func getBoardNumber(index: Int) -> Int {
-        let rowFromTop  = index / 10
-        let col         = index % 10
+        let rowFromTop    = index / 10
+        let col           = index % 10
         let rowFromBottom = 9 - rowFromTop
         if rowFromBottom % 2 == 0 {
             return rowFromBottom * 10 + col + 1
@@ -534,13 +593,11 @@ class PawnView: UIView {
         let headCenterY = height * 0.29
         let bodyTopY    = headCenterY + headRadius
         
-        // Head
         ctx.setFillColor(pawnColor.cgColor)
         ctx.addEllipse(in: CGRect(x: centerX - headRadius, y: headCenterY - headRadius,
                                   width: headRadius * 2,   height: headRadius * 2))
         ctx.fillPath()
         
-        // Body
         let bodyRect = CGRect(x: centerX - bodyWidth / 2, y: bodyTopY,
                               width: bodyWidth, height: bodyHeight)
         let bodyPath = UIBezierPath(roundedRect: bodyRect, cornerRadius: bodyWidth * 0.4)
@@ -548,11 +605,9 @@ class PawnView: UIView {
         ctx.setFillColor(pawnColor.cgColor)
         ctx.fillPath()
         
-        // Shadow
         ctx.setShadow(offset: CGSize(width: 0, height: 2), blur: 2,
                       color: UIColor.black.withAlphaComponent(0.18).cgColor)
         
-        // Specular shine on head
         let shineRadius = headRadius * 0.55
         ctx.setFillColor(UIColor.white.withAlphaComponent(0.20).cgColor)
         ctx.addEllipse(in: CGRect(x: centerX - shineRadius * 0.7,

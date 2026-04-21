@@ -113,10 +113,10 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player's turn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrh-jI-FWY">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player's turn" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrh-jI-FWY">
                                     <rect key="frame" x="143.66666666666666" y="0.0" width="85.666666666666657" height="100"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rND-hp-OzI" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
@@ -226,7 +226,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="373" height="100"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k7q-MC-EFn" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
-                                    <rect key="frame" x="283" y="0.0" width="90" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-ne-BN5">
                                             <rect key="frame" x="5" y="5" width="80" height="90"/>

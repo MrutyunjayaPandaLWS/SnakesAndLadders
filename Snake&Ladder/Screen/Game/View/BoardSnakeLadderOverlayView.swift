@@ -48,12 +48,17 @@ final class BoardSnakeLadderOverlayView: UIView {
     
     private func cellCenter(_ number: Int, in rect: CGRect) -> CGPoint {
         let rowFromBottom = (number - 1) / 10
-        let offsetInRow = (number - 1) % 10
-        let col = rowFromBottom % 2 == 0 ? offsetInRow : 9 - offsetInRow
-        let rowTop = 9 - rowFromBottom
-        let side = (rect.width - gridSpacing * 9) / 10
-        let x = CGFloat(col) * (side + gridSpacing) + side / 2
-        let y = CGFloat(rowTop) * (side + gridSpacing) + side / 2
+        let offsetInRow   = (number - 1) % 10
+        let col           = rowFromBottom % 2 == 0 ? offsetInRow : 9 - offsetInRow
+        let rowTop        = 9 - rowFromBottom
+
+        // FIX: use rect.width for X and rect.HEIGHT for Y separately
+        let cellW = (rect.width  - gridSpacing * 9) / 10
+        let cellH = (rect.height - gridSpacing * 9) / 10   // ← was using width here before!
+
+        let x = CGFloat(col)    * (cellW + gridSpacing) + cellW / 2
+        let y = CGFloat(rowTop) * (cellH + gridSpacing) + cellH / 2   // ← was cellW before!
+
         return CGPoint(x: x, y: y)
     }
     
