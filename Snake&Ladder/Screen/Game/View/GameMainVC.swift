@@ -49,14 +49,14 @@ class GameMainVC: UIViewController {
     var playerTokens: [UIView] = []
     private var gameFinished = false
     
-    private let gridSpacing: CGFloat = 0
+    private let gridSpacing: CGFloat = 2
     private var isAnimatingMove = false
     
     let snakes: [Int: Int] = [
         98: 2,
+        85: 49,
         61: 40,
-        85: 52,
-        54: 16,
+        54: 37,
         32: 7
     ]
     
@@ -102,8 +102,8 @@ class GameMainVC: UIViewController {
         board_CV.backgroundColor = .clear
         board_CV.isScrollEnabled = false
         if let layout = board_CV.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.minimumInteritemSpacing = 0
-            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = gridSpacing
+            layout.minimumLineSpacing = gridSpacing
             layout.sectionInset = .zero
         }
         setupGameMode()
@@ -209,20 +209,40 @@ extension GameMainVC {
         }
     }
     
+//    func setupTokens() {
+//        let colors: [UIColor] = [
+//            UIColor(red: 0.92, green: 0.22, blue: 0.22, alpha: 1),
+//            UIColor(red: 0.18, green: 0.45, blue: 0.92, alpha: 1),
+//            UIColor(red: 0.98, green: 0.82, blue: 0.22, alpha: 1),
+//            UIColor(red: 0.18, green: 0.78, blue: 0.34, alpha: 1)
+//        ]
+//        // Only create tokens for active players
+//        for i in 0..<activePlayerCount {
+//            let pawn = PawnView(color: colors[i])
+//            pawn.bounds = CGRect(x: 0, y: 0, width: 22, height: 28)
+//            boardBg_View.addSubview(pawn)
+//            playerTokens.append(pawn)
+//        }
+//        boardBg_View.bringSubviewToFront(snakeLadderOverlay)
+//        playerTokens.forEach { boardBg_View.bringSubviewToFront($0) }
+//    }
+    
     func setupTokens() {
-        let colors: [UIColor] = [
-            UIColor(red: 0.92, green: 0.22, blue: 0.22, alpha: 1),
-            UIColor(red: 0.18, green: 0.45, blue: 0.92, alpha: 1),
-            UIColor(red: 0.98, green: 0.82, blue: 0.22, alpha: 1),
-            UIColor(red: 0.18, green: 0.78, blue: 0.34, alpha: 1)
-        ]
-        // Only create tokens for active players
+        playerTokens.removeAll()
+
         for i in 0..<activePlayerCount {
-            let pawn = PawnView(color: colors[i])
-            pawn.bounds = CGRect(x: 0, y: 0, width: 22, height: 28)
-            boardBg_View.addSubview(pawn)
-            playerTokens.append(pawn)
+            let imageName = "token_p\(i + 1)"   // 👈 IMPORTANT naming
+
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: imageName)
+            imageView.contentMode = .scaleAspectFit
+
+            imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+
+            boardBg_View.addSubview(imageView)
+            playerTokens.append(imageView)
         }
+
         boardBg_View.bringSubviewToFront(snakeLadderOverlay)
         playerTokens.forEach { boardBg_View.bringSubviewToFront($0) }
     }
@@ -285,9 +305,11 @@ extension GameMainVC {
     
     func cellSize() -> CGSize {
         guard board_CV.bounds.width > 0, board_CV.bounds.height > 0 else { return .zero }
+        let width = (board_CV.bounds.width - gridSpacing * 9) / 10
+        let height = (board_CV.bounds.height - gridSpacing * 9) / 10
         return CGSize(
-            width:  floor(board_CV.bounds.width  / 10),
-            height: floor(board_CV.bounds.height / 10)
+            width: floor(width),
+            height: floor(height)
         )
     }
     
@@ -362,6 +384,7 @@ extension GameMainVC {
         updateActivePlayerUI()
 
         let diceValue = Int.random(in: 1...6)
+//        let diceValue = 2
         loadGif(into: imageView, name: "dice\(diceValue).gif")
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -440,13 +463,17 @@ extension GameMainVC {
 
 extension GameMainVC {
     
-    func animateWalk(index: Int, path: [Int], stepDuration: Double = 0.11, completion: @escaping () -> Void) {
+    func animateWalk(index: Int, path: [Int], stepDuration: Double = 0.20, completion: @escaping () -> Void) {
         guard !path.isEmpty else { completion(); return }
         var stepIndex = 0
         func next() {
             let num   = path[stepIndex]
             let point = self.centerForBoardNumber(num, playerIndex: index)
-            UIView.animate(withDuration: stepDuration, delay: 0, options: [.curveEaseInOut], animations: {
+
+            UIView.animate(withDuration: stepDuration,
+                           delay: 0,
+                           options: [.curveEaseInOut],
+                           animations: {
                 self.playerTokens[index].center = point
             }, completion: { _ in
                 stepIndex += 1
@@ -485,29 +512,68 @@ extension GameMainVC {
     }
     
     func animateJumpSegments(index: Int, jumps: [(Int, Int)], completion: @escaping () -> Void) {
-        guard !jumps.isEmpty else { completion(); return }
+        guard !jumps.isEmpty else {
+            completion()
+            return
+        }
+
         var jumpIdx = 0
+
         func runNext() {
             let (from, to) = jumps[jumpIdx]
             let isLadder = ladders[from] == to
+
+            let fromPt = centerForBoardNumber(from, playerIndex: index)
+            let toPt   = centerForBoardNumber(to,   playerIndex: index)
+
+            // ✅ Distance-based animation
+            let distance = hypot(toPt.x - fromPt.x, toPt.y - fromPt.y)
+
+            // 🎯 Tune speeds here
+            let speed: CGFloat = isLadder ? 180 : 260   // ladder slower, snake faster
+
+            let duration = TimeInterval(distance / speed)
+
             animateSlidePath(
                 index: index,
-                from: centerForBoardNumber(from, playerIndex: index),
-                to:   centerForBoardNumber(to,   playerIndex: index),
-                duration: isLadder ? 1.2 : 0.8
+                from: fromPt,
+                to: toPt,
+                duration: duration,
+                isLadder: isLadder
             ) {
                 jumpIdx += 1
-                if jumpIdx < jumps.count { runNext() } else { completion() }
+                if jumpIdx < jumps.count {
+                    runNext()
+                } else {
+                    completion()
+                }
             }
         }
+
         runNext()
     }
     
-    func animateSlidePath(index: Int, from: CGPoint, to: CGPoint, duration: TimeInterval, completion: @escaping () -> Void) {
+    func animateSlidePath(
+        index: Int,
+        from: CGPoint,
+        to: CGPoint,
+        duration: TimeInterval,
+        isLadder: Bool,
+        completion: @escaping () -> Void
+    ) {
         playerTokens[index].center = from
-        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
-            self.playerTokens[index].center = to
-        }, completion: { _ in completion() })
+
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            options: isLadder ? [.curveEaseOut] : [.curveEaseIn],
+            animations: {
+                self.playerTokens[index].center = to
+            },
+            completion: { _ in
+                completion()
+            }
+        )
     }
 }
 
@@ -543,7 +609,11 @@ extension GameMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         guard let cell = collectionView.dequeueCell(ofType: BoardCVC.self, for: indexPath) else {
             return UICollectionViewCell()
         }
-        cell.configure(number: getBoardNumber(index: indexPath.item))
+        let number = getBoardNumber(index: indexPath.item)
+        let rowFromTop = indexPath.item / 10
+        let col = indexPath.item % 10
+        let isAlternate = (rowFromTop + col).isMultiple(of: 2)
+        cell.configure(number: number, isAlternate: isAlternate)
         cell.backgroundColor = .clear
         return cell
     }
@@ -551,8 +621,8 @@ extension GameMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width  = floor(collectionView.bounds.width  / 10)
-        let height = floor(collectionView.bounds.height / 10)
+        let width  = floor((collectionView.bounds.width  - gridSpacing * 9) / 10)
+        let height = floor((collectionView.bounds.height - gridSpacing * 9) / 10)
         return CGSize(width: width, height: height)
     }
     
@@ -565,54 +635,5 @@ extension GameMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         } else {
             return rowFromBottom * 10 + (9 - col) + 1
         }
-    }
-}
-
-// MARK: - PawnView
-
-class PawnView: UIView {
-    private let pawnColor: UIColor
-    
-    init(color: UIColor) {
-        self.pawnColor = color
-        super.init(frame: .zero)
-        backgroundColor = .clear
-        isOpaque = false
-    }
-    
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
-    override func draw(_ rect: CGRect) {
-        guard let ctx = UIGraphicsGetCurrentContext() else { return }
-        let width       = rect.width
-        let height      = rect.height
-        let headRadius  = width * 0.28
-        let bodyWidth   = width * 0.36
-        let bodyHeight  = height * 0.46
-        let centerX     = width / 2
-        let headCenterY = height * 0.29
-        let bodyTopY    = headCenterY + headRadius
-        
-        ctx.setFillColor(pawnColor.cgColor)
-        ctx.addEllipse(in: CGRect(x: centerX - headRadius, y: headCenterY - headRadius,
-                                  width: headRadius * 2,   height: headRadius * 2))
-        ctx.fillPath()
-        
-        let bodyRect = CGRect(x: centerX - bodyWidth / 2, y: bodyTopY,
-                              width: bodyWidth, height: bodyHeight)
-        let bodyPath = UIBezierPath(roundedRect: bodyRect, cornerRadius: bodyWidth * 0.4)
-        ctx.addPath(bodyPath.cgPath)
-        ctx.setFillColor(pawnColor.cgColor)
-        ctx.fillPath()
-        
-        ctx.setShadow(offset: CGSize(width: 0, height: 2), blur: 2,
-                      color: UIColor.black.withAlphaComponent(0.18).cgColor)
-        
-        let shineRadius = headRadius * 0.55
-        ctx.setFillColor(UIColor.white.withAlphaComponent(0.20).cgColor)
-        ctx.addEllipse(in: CGRect(x: centerX - shineRadius * 0.7,
-                                  y: headCenterY - shineRadius * 0.7,
-                                  width: shineRadius, height: shineRadius))
-        ctx.fillPath()
     }
 }

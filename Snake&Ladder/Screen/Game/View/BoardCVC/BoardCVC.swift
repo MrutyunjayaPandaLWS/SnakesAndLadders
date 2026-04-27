@@ -12,6 +12,11 @@ class BoardCVC: UICollectionViewCell {
     @IBOutlet weak var bg_View: GradientView!
     @IBOutlet weak var num_Lbl: UILabel!
     
+    private let primaryStart = UIColor(red: 0.90, green: 0.83, blue: 0.62, alpha: 1.0)
+    private let primaryEnd   = UIColor(red: 0.84, green: 0.75, blue: 0.53, alpha: 1.0)
+    private let altStart     = UIColor(red: 0.87, green: 0.79, blue: 0.58, alpha: 1.0)
+    private let altEnd       = UIColor(red: 0.81, green: 0.72, blue: 0.49, alpha: 1.0)
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +33,9 @@ class BoardCVC: UICollectionViewCell {
                 bg_View.cornerRadius = 4      
     }
     
-    func configure(number: Int) {
+    func configure(number: Int, isAlternate: Bool) {
         num_Lbl.text = String(format: "%02d", number)
+        bg_View.startColor = isAlternate ? altStart : primaryStart
+        bg_View.endColor = isAlternate ? altEnd : primaryEnd
     }
 }
