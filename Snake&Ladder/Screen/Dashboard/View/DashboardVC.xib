@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,11 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DashboardVC" customModule="Snake_Ladder" customModuleProvider="target">
             <connections>
-                <outlet property="fourPlayer_Btn" destination="Bsk-sR-YDb" id="ixk-LN-yhz"/>
-                <outlet property="threePlayer_Btn" destination="oHv-UZ-cdK" id="jJ6-VC-JM0"/>
-                <outlet property="title_Lbl" destination="DOn-1C-gOE" id="or0-zJ-jsR"/>
-                <outlet property="twoPlayer_Btn" destination="UxO-FI-rcx" id="ZsW-Zc-g0t"/>
-                <outlet property="versusAI_Btn" destination="2gb-F8-CZf" id="mEd-lo-aI4"/>
+                <outlet property="exit_Btn" destination="QAL-tw-wBJ" id="mEu-1x-6UB"/>
+                <outlet property="playWithfrnds_Btn" destination="zdg-on-nO2" id="niW-YD-gd7"/>
+                <outlet property="versusAI_Btn" destination="rTS-Ft-cJB" id="kNB-gG-wnf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,99 +26,196 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boardBgImg" translatesAutoresizingMaskIntoConstraints="NO" id="991-06-1zz">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SNAKE &amp; LADDER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOn-1C-gOE">
-                    <rect key="frame" x="20" y="118" width="353" height="37"/>
-                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="31"/>
-                    <color key="textColor" systemColor="systemIndigoColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyu-qZ-Fhu">
-                    <rect key="frame" x="20" y="308" width="353" height="236"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XUG-4c-5wk" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                    <rect key="frame" x="323" y="118" width="60" height="60"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="PVq-SA-mrh">
-                            <rect key="frame" x="20" y="20" width="313" height="196"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQ5-fz-n67" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                            <rect key="frame" x="6" y="6" width="48" height="48"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6u8-lZ-1Gf">
-                                    <rect key="frame" x="0.0" y="0.0" width="313" height="136"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exitGame" translatesAutoresizingMaskIntoConstraints="NO" id="uX7-WC-cgb">
+                                    <rect key="frame" x="10" y="10" width="28" height="28"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" name="Secondary"/>
+                            <constraints>
+                                <constraint firstItem="uX7-WC-cgb" firstAttribute="top" secondItem="nQ5-fz-n67" secondAttribute="top" constant="10" id="1bd-Hz-3bu"/>
+                                <constraint firstAttribute="trailing" secondItem="uX7-WC-cgb" secondAttribute="trailing" constant="10" id="3rD-LW-c8J"/>
+                                <constraint firstAttribute="bottom" secondItem="uX7-WC-cgb" secondAttribute="bottom" constant="10" id="TCl-Ws-UGN"/>
+                                <constraint firstItem="uX7-WC-cgb" firstAttribute="leading" secondItem="nQ5-fz-n67" secondAttribute="leading" constant="10" id="eqs-yz-tqq"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAL-tw-wBJ">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="didTapExitBtn:" destination="-1" eventType="touchUpInside" id="sqU-iF-awO"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" name="Tertiary"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="QAL-tw-wBJ" secondAttribute="bottom" id="5Aq-Lt-ak7"/>
+                        <constraint firstAttribute="width" constant="60" id="BoU-ml-cAB"/>
+                        <constraint firstAttribute="height" constant="60" id="G4J-lB-gQk"/>
+                        <constraint firstAttribute="trailing" secondItem="QAL-tw-wBJ" secondAttribute="trailing" id="KBc-lG-zFo"/>
+                        <constraint firstItem="nQ5-fz-n67" firstAttribute="leading" secondItem="XUG-4c-5wk" secondAttribute="leading" constant="6" id="Sdj-RY-mdl"/>
+                        <constraint firstAttribute="bottom" secondItem="nQ5-fz-n67" secondAttribute="bottom" constant="6" id="dgS-wN-Lbz"/>
+                        <constraint firstItem="QAL-tw-wBJ" firstAttribute="leading" secondItem="XUG-4c-5wk" secondAttribute="leading" id="eeW-0T-K0D"/>
+                        <constraint firstItem="QAL-tw-wBJ" firstAttribute="top" secondItem="XUG-4c-5wk" secondAttribute="top" id="la8-nH-Iwy"/>
+                        <constraint firstItem="nQ5-fz-n67" firstAttribute="top" secondItem="XUG-4c-5wk" secondAttribute="top" constant="6" id="lzW-NC-TF1"/>
+                        <constraint firstAttribute="trailing" secondItem="nQ5-fz-n67" secondAttribute="trailing" constant="6" id="rqW-ln-daH"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="8bh-cS-Buh">
+                    <rect key="frame" x="20" y="188" width="353" height="125"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="125" id="zLi-uS-aQA"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyu-qZ-Fhu">
+                    <rect key="frame" x="40" y="323" width="313" height="309"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="PVq-SA-mrh">
+                            <rect key="frame" x="20" y="20" width="273" height="269"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gx-pV-3t9" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="273" height="127"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UxO-FI-rcx" customClass="UIButtonDesignable" customModule="Snake_Ladder" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="313" height="40"/>
-                                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="nAz-VW-RV4"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Cry-iE-oCj">
+                                            <rect key="frame" x="10" y="10" width="253" height="107"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gck-wG-VNB" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="253" height="80"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playWithFriends" translatesAutoresizingMaskIntoConstraints="NO" id="reW-Hi-tB0">
+                                                            <rect key="frame" x="101.66666666666666" y="10" width="50" height="60"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="50" id="mrL-Qt-KFg"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" name="Secondary"/>
+                                                    <constraints>
+                                                        <constraint firstItem="reW-Hi-tB0" firstAttribute="centerX" secondItem="gck-wG-VNB" secondAttribute="centerX" id="262-ji-F3J"/>
+                                                        <constraint firstAttribute="bottom" secondItem="reW-Hi-tB0" secondAttribute="bottom" constant="10" id="evG-IS-0yJ"/>
+                                                        <constraint firstAttribute="height" constant="80" id="iiu-Vd-X9V"/>
+                                                        <constraint firstItem="reW-Hi-tB0" firstAttribute="top" secondItem="gck-wG-VNB" secondAttribute="top" constant="10" id="xWh-ei-CWC"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLAY WITH FRIENDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6P-Ue-ScX">
+                                                    <rect key="frame" x="0.0" y="85" width="253" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdg-on-nO2">
+                                            <rect key="frame" x="0.0" y="0.0" width="273" height="127"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="2 PLAYERS"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="10"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="didTapTwoPlayerBtn:" destination="-1" eventType="touchUpInside" id="Sr9-22-Boc"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHv-UZ-cdK" customClass="UIButtonDesignable" customModule="Snake_Ladder" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="48" width="313" height="40"/>
-                                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="E4z-QZ-wRW"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="3 PLAYERS"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="10"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="didTapThreePlayerBtn:" destination="-1" eventType="touchUpInside" id="VWV-Lq-C69"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bsk-sR-YDb" customClass="UIButtonDesignable" customModule="Snake_Ladder" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="96" width="313" height="40"/>
-                                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="J83-2u-esz"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="4 PLAYERS"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="10"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="didTapFourPlayerBtn:" destination="-1" eventType="touchUpInside" id="dJ8-XO-Cdt"/>
+                                                <action selector="didTapPlayWithFrndsBtn:" destination="-1" eventType="touchUpInside" id="IZj-YZ-Vga"/>
                                             </connections>
                                         </button>
                                     </subviews>
-                                </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gb-F8-CZf" customClass="UIButtonDesignable" customModule="Snake_Ladder" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="156" width="313" height="40"/>
-                                    <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                    <color key="backgroundColor" name="Primary"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="mK0-5K-b8c"/>
+                                        <constraint firstAttribute="bottom" secondItem="zdg-on-nO2" secondAttribute="bottom" id="4R9-66-LfN"/>
+                                        <constraint firstAttribute="bottom" secondItem="Cry-iE-oCj" secondAttribute="bottom" constant="10" id="9Nt-QT-mIt"/>
+                                        <constraint firstItem="zdg-on-nO2" firstAttribute="top" secondItem="6gx-pV-3t9" secondAttribute="top" id="Tda-kk-tYE"/>
+                                        <constraint firstAttribute="trailing" secondItem="zdg-on-nO2" secondAttribute="trailing" id="YeW-8S-6pD"/>
+                                        <constraint firstItem="Cry-iE-oCj" firstAttribute="top" secondItem="6gx-pV-3t9" secondAttribute="top" constant="10" id="fEW-em-eSQ"/>
+                                        <constraint firstItem="zdg-on-nO2" firstAttribute="leading" secondItem="6gx-pV-3t9" secondAttribute="leading" id="g7v-6N-Q6N"/>
+                                        <constraint firstItem="Cry-iE-oCj" firstAttribute="leading" secondItem="6gx-pV-3t9" secondAttribute="leading" constant="10" id="qDQ-5m-vkx"/>
+                                        <constraint firstAttribute="trailing" secondItem="Cry-iE-oCj" secondAttribute="trailing" constant="10" id="qgb-2v-c03"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="VERSUS AI"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="didTapVersusAIBtn:" destination="-1" eventType="touchUpInside" id="5Rl-ze-MiZ"/>
-                                    </connections>
-                                </button>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hy-mS-7jl" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="142" width="273" height="127"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HQu-T6-64L">
+                                            <rect key="frame" x="10" y="10" width="253" height="107"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-Ba-bd6" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="253" height="80"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="versusAI" translatesAutoresizingMaskIntoConstraints="NO" id="ZlL-T2-diF">
+                                                            <rect key="frame" x="101.66666666666666" y="10" width="50" height="60"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="50" id="EV0-8c-ft5"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" name="Secondary"/>
+                                                    <constraints>
+                                                        <constraint firstItem="ZlL-T2-diF" firstAttribute="top" secondItem="UF7-Ba-bd6" secondAttribute="top" constant="10" id="WFj-cg-aQM"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ZlL-T2-diF" secondAttribute="bottom" constant="10" id="Xmp-vz-Kky"/>
+                                                        <constraint firstItem="ZlL-T2-diF" firstAttribute="centerX" secondItem="UF7-Ba-bd6" secondAttribute="centerX" id="kh9-OG-F5L"/>
+                                                        <constraint firstAttribute="height" constant="80" id="x63-9E-Dfe"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERSUS AI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnr-cH-NB4">
+                                                    <rect key="frame" x="0.0" y="85" width="253" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTS-Ft-cJB">
+                                            <rect key="frame" x="0.0" y="0.0" width="273" height="127"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="didTapVersusAIBtn:" destination="-1" eventType="touchUpInside" id="vI7-cy-Ew3"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" name="Primary"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="HQu-T6-64L" secondAttribute="trailing" constant="10" id="87F-fM-eFh"/>
+                                        <constraint firstItem="rTS-Ft-cJB" firstAttribute="top" secondItem="7hy-mS-7jl" secondAttribute="top" id="Ad7-LK-Nbp"/>
+                                        <constraint firstAttribute="bottom" secondItem="HQu-T6-64L" secondAttribute="bottom" constant="10" id="BoH-kw-oWu"/>
+                                        <constraint firstItem="rTS-Ft-cJB" firstAttribute="leading" secondItem="7hy-mS-7jl" secondAttribute="leading" id="Mp0-Mn-a5O"/>
+                                        <constraint firstAttribute="bottom" secondItem="rTS-Ft-cJB" secondAttribute="bottom" id="VLH-id-wki"/>
+                                        <constraint firstItem="HQu-T6-64L" firstAttribute="top" secondItem="7hy-mS-7jl" secondAttribute="top" constant="10" id="fU2-G4-kJ4"/>
+                                        <constraint firstAttribute="trailing" secondItem="rTS-Ft-cJB" secondAttribute="trailing" id="kNL-mt-vzQ"/>
+                                        <constraint firstItem="HQu-T6-64L" firstAttribute="leading" secondItem="7hy-mS-7jl" secondAttribute="leading" constant="10" id="qhV-hA-6aR"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
                             </subviews>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="PVq-SA-mrh" secondAttribute="trailing" constant="20" id="HxP-nB-Nsf"/>
                         <constraint firstAttribute="bottom" secondItem="PVq-SA-mrh" secondAttribute="bottom" constant="20" id="Jpm-xS-RGb"/>
@@ -131,27 +227,39 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="DOn-1C-gOE" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="20D-cb-Up1"/>
-                <constraint firstItem="kyu-qZ-Fhu" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3nU-as-4EJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XUG-4c-5wk" secondAttribute="trailing" constant="10" id="DLh-hh-w2C"/>
                 <constraint firstAttribute="trailing" secondItem="991-06-1zz" secondAttribute="trailing" id="H0C-hD-uTd"/>
                 <constraint firstAttribute="bottom" secondItem="991-06-1zz" secondAttribute="bottom" id="O6O-u5-Gmi"/>
-                <constraint firstItem="DOn-1C-gOE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="PXm-Fa-qbR"/>
-                <constraint firstItem="kyu-qZ-Fhu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="bIe-3B-re5"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kyu-qZ-Fhu" secondAttribute="trailing" constant="20" id="dd3-Kd-4tG"/>
+                <constraint firstItem="XUG-4c-5wk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="SyR-bj-zmn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8bh-cS-Buh" secondAttribute="trailing" constant="20" id="ZKt-zz-VAR"/>
+                <constraint firstItem="kyu-qZ-Fhu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="bIe-3B-re5"/>
+                <constraint firstItem="kyu-qZ-Fhu" firstAttribute="top" secondItem="8bh-cS-Buh" secondAttribute="bottom" constant="10" id="dGv-pV-NTu"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kyu-qZ-Fhu" secondAttribute="trailing" constant="40" id="dd3-Kd-4tG"/>
                 <constraint firstItem="991-06-1zz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="f49-Rx-Fjx"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="DOn-1C-gOE" secondAttribute="trailing" constant="20" id="tZL-eK-9lb"/>
+                <constraint firstItem="8bh-cS-Buh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="iLR-86-bJ9"/>
+                <constraint firstItem="8bh-cS-Buh" firstAttribute="top" secondItem="XUG-4c-5wk" secondAttribute="bottom" constant="10" id="xC3-BE-KXj"/>
                 <constraint firstItem="991-06-1zz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="yb4-Dh-7iH"/>
             </constraints>
-            <point key="canvasLocation" x="-60" y="130"/>
+            <point key="canvasLocation" x="-60.305343511450381" y="129.57746478873241"/>
         </view>
     </objects>
     <resources>
-        <image name="boardBgImg" width="2298" height="4096"/>
+        <image name="Logo" width="1536" height="1024"/>
+        <image name="boardBgImg" width="1320" height="2868"/>
+        <image name="exitGame" width="72" height="72"/>
+        <image name="playWithFriends" width="228" height="228"/>
+        <image name="versusAI" width="228" height="228"/>
+        <namedColor name="Primary">
+            <color red="0.69800001382827759" green="0.52899998426437378" blue="0.25499999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Secondary">
+            <color red="0.34099999070167542" green="0.25900000333786011" blue="0.12200000137090683" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Tertiary">
+            <color red="0.83899998664855957" green="0.76099997758865356" blue="0.53700000047683716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.38039215686274508" green="0.33333333333333331" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

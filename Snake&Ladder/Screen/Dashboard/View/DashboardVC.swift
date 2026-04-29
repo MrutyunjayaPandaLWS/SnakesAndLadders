@@ -9,31 +9,24 @@ import UIKit
 
 class DashboardVC: UIViewController {
 
-    @IBOutlet weak var title_Lbl: UILabel!
-    @IBOutlet weak var twoPlayer_Btn: UIButton!
-    @IBOutlet weak var threePlayer_Btn: UIButton!
-    @IBOutlet weak var fourPlayer_Btn: UIButton!
+   
+    @IBOutlet weak var exit_Btn: UIButton!
+    @IBOutlet weak var playWithfrnds_Btn: UIButton!
     @IBOutlet weak var versusAI_Btn: UIButton!
     
-    var selectedGameMode: GameMode = .fourPlayer
+    var selectedGameMode: GameMode = .versusAI
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
     
-    @IBAction func didTapTwoPlayerBtn(_ sender: UIButton){
-        selectedGameMode = .twoPlayer
-        navigateToGameVC()
+    @IBAction func didTapExitBtn(_ sender: UIButton){
+        navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func didTapThreePlayerBtn(_ sender: UIButton){
-        selectedGameMode = .threePlayer
-        navigateToGameVC()
-    }
     
-    @IBAction func didTapFourPlayerBtn(_ sender: UIButton){
-        selectedGameMode = .fourPlayer
-        navigateToGameVC()
+    @IBAction func didTapPlayWithFrndsBtn(_ sender: UIButton){
+        navigateToSelectPlayerVC()
     }
     
     @IBAction func didTapVersusAIBtn(_ sender: UIButton){
@@ -48,6 +41,11 @@ extension DashboardVC{
     func navigateToGameVC(){
         let vc = GameMainVC()
         vc.gameMode = selectedGameMode
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func navigateToSelectPlayerVC(){
+        let vc = SelectPlayersVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

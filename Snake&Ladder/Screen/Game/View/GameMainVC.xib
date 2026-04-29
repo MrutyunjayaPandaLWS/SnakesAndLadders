@@ -47,8 +47,124 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boardBgImg" translatesAutoresizingMaskIntoConstraints="NO" id="5Vx-Je-hC7">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XlX-kx-mYo">
+                    <rect key="frame" x="10" y="118" width="373" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="wen-qh-l7c">
+                            <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WIJ-tW-yXl" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V9C-BS-uI3" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                            <rect key="frame" x="6" y="6" width="38" height="38"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="resetGame" translatesAutoresizingMaskIntoConstraints="NO" id="yRv-EV-PWa">
+                                                    <rect key="frame" x="8" y="8" width="22" height="22"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" name="Primary"/>
+                                            <constraints>
+                                                <constraint firstItem="yRv-EV-PWa" firstAttribute="leading" secondItem="V9C-BS-uI3" secondAttribute="leading" constant="8" id="GVZ-WF-oKC"/>
+                                                <constraint firstAttribute="bottom" secondItem="yRv-EV-PWa" secondAttribute="bottom" constant="8" id="IW8-7I-8ec"/>
+                                                <constraint firstItem="yRv-EV-PWa" firstAttribute="top" secondItem="V9C-BS-uI3" secondAttribute="top" constant="8" id="RQF-2g-VdV"/>
+                                                <constraint firstAttribute="trailing" secondItem="yRv-EV-PWa" secondAttribute="trailing" constant="8" id="ck5-2K-vIq"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybW-hf-E9W">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" name="Tertiary"/>
+                                    <constraints>
+                                        <constraint firstItem="ybW-hf-E9W" firstAttribute="top" secondItem="WIJ-tW-yXl" secondAttribute="top" id="Bjc-IA-ccj"/>
+                                        <constraint firstAttribute="bottom" secondItem="V9C-BS-uI3" secondAttribute="bottom" constant="6" id="NfW-He-t83"/>
+                                        <constraint firstItem="V9C-BS-uI3" firstAttribute="leading" secondItem="WIJ-tW-yXl" secondAttribute="leading" constant="6" id="TXR-J6-hfu"/>
+                                        <constraint firstAttribute="trailing" secondItem="V9C-BS-uI3" secondAttribute="trailing" constant="6" id="fvQ-iB-DJG"/>
+                                        <constraint firstAttribute="trailing" secondItem="ybW-hf-E9W" secondAttribute="trailing" id="gR8-ka-rzM"/>
+                                        <constraint firstItem="V9C-BS-uI3" firstAttribute="top" secondItem="WIJ-tW-yXl" secondAttribute="top" constant="6" id="mET-cu-XNK"/>
+                                        <constraint firstItem="ybW-hf-E9W" firstAttribute="leading" secondItem="WIJ-tW-yXl" secondAttribute="leading" id="wWK-7T-fFM"/>
+                                        <constraint firstAttribute="width" constant="50" id="x0p-U3-E6r"/>
+                                        <constraint firstAttribute="bottom" secondItem="ybW-hf-E9W" secondAttribute="bottom" id="xHX-GN-l8J"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo1" translatesAutoresizingMaskIntoConstraints="NO" id="iUx-tT-sQX">
+                                    <rect key="frame" x="111.66666666666669" y="0.0" width="150" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="150" id="EdN-ZA-TaT"/>
+                                    </constraints>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="muV-cG-mcr" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                    <rect key="frame" x="323" y="0.0" width="50" height="50"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cq6-UN-Mq8" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
+                                            <rect key="frame" x="6" y="6" width="38" height="38"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home" translatesAutoresizingMaskIntoConstraints="NO" id="tP1-Nf-Kow">
+                                                    <rect key="frame" x="8" y="8" width="22" height="22"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" name="Secondary"/>
+                                            <constraints>
+                                                <constraint firstItem="tP1-Nf-Kow" firstAttribute="top" secondItem="Cq6-UN-Mq8" secondAttribute="top" constant="8" id="MTa-eq-q3X"/>
+                                                <constraint firstAttribute="bottom" secondItem="tP1-Nf-Kow" secondAttribute="bottom" constant="8" id="R5N-N9-cQa"/>
+                                                <constraint firstAttribute="trailing" secondItem="tP1-Nf-Kow" secondAttribute="trailing" constant="8" id="UeX-zY-uMf"/>
+                                                <constraint firstItem="tP1-Nf-Kow" firstAttribute="leading" secondItem="Cq6-UN-Mq8" secondAttribute="leading" constant="8" id="hj2-wg-FeU"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1L-iY-yFi">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" name="Tertiary"/>
+                                    <constraints>
+                                        <constraint firstItem="b1L-iY-yFi" firstAttribute="leading" secondItem="muV-cG-mcr" secondAttribute="leading" id="7zK-6J-vNf"/>
+                                        <constraint firstAttribute="width" constant="50" id="AX3-zw-akx"/>
+                                        <constraint firstAttribute="bottom" secondItem="Cq6-UN-Mq8" secondAttribute="bottom" constant="6" id="BBV-H0-R7B"/>
+                                        <constraint firstAttribute="bottom" secondItem="b1L-iY-yFi" secondAttribute="bottom" id="BJB-oT-V8O"/>
+                                        <constraint firstAttribute="trailing" secondItem="b1L-iY-yFi" secondAttribute="trailing" id="G7w-8G-J4Z"/>
+                                        <constraint firstItem="Cq6-UN-Mq8" firstAttribute="top" secondItem="muV-cG-mcr" secondAttribute="top" constant="6" id="Vsc-s4-FdI"/>
+                                        <constraint firstItem="Cq6-UN-Mq8" firstAttribute="leading" secondItem="muV-cG-mcr" secondAttribute="leading" constant="6" id="gNF-ew-yUd"/>
+                                        <constraint firstItem="b1L-iY-yFi" firstAttribute="top" secondItem="muV-cG-mcr" secondAttribute="top" id="roC-Dn-6Ey"/>
+                                        <constraint firstAttribute="trailing" secondItem="Cq6-UN-Mq8" secondAttribute="trailing" constant="6" id="zAE-TU-wJZ"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="wen-qh-l7c" secondAttribute="bottom" id="7R6-5j-5PE"/>
+                        <constraint firstItem="wen-qh-l7c" firstAttribute="top" secondItem="XlX-kx-mYo" secondAttribute="top" id="Gkh-1M-Y3w"/>
+                        <constraint firstAttribute="trailing" secondItem="wen-qh-l7c" secondAttribute="trailing" id="KJl-JO-7AR"/>
+                        <constraint firstAttribute="height" constant="50" id="YjN-gk-NqQ"/>
+                        <constraint firstItem="wen-qh-l7c" firstAttribute="leading" secondItem="XlX-kx-mYo" secondAttribute="leading" id="siG-Re-djx"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLm-DE-M4j">
-                    <rect key="frame" x="10" y="123" width="373" height="100"/>
+                    <rect key="frame" x="10" y="178" width="373" height="100"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="IwQ-DD-mit">
                             <rect key="frame" x="0.0" y="0.0" width="373" height="100"/>
@@ -73,7 +189,7 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="diceBgColor"/>
+                                                    <color key="backgroundColor" name="Secondary"/>
                                                     <constraints>
                                                         <constraint firstItem="NLq-i1-Fnc" firstAttribute="leading" secondItem="mCh-Lv-0xd" secondAttribute="leading" id="05f-lW-9gr"/>
                                                         <constraint firstAttribute="trailing" secondItem="AFA-MV-TWR" secondAttribute="trailing" constant="4" id="0FI-u6-Ry4"/>
@@ -99,7 +215,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" name="diceContViewBgColor"/>
+                                    <color key="backgroundColor" name="Primary"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="90" id="KDO-XK-5ml"/>
                                         <constraint firstItem="UMf-cf-8J3" firstAttribute="leading" secondItem="wUx-B2-1TT" secondAttribute="leading" constant="5" id="Sqs-Vz-Or4"/>
@@ -139,7 +255,7 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="diceBgColor"/>
+                                                    <color key="backgroundColor" name="Secondary"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="C3d-NF-4Vm" secondAttribute="bottom" constant="4" id="BZZ-KP-jLS"/>
                                                         <constraint firstAttribute="bottom" secondItem="Vjh-Do-6gN" secondAttribute="bottom" id="FEU-P1-uTs"/>
@@ -165,7 +281,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" name="diceContViewBgColor"/>
+                                    <color key="backgroundColor" name="Primary"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="DgC-up-jnw" secondAttribute="trailing" constant="5" id="Rui-n8-qxo"/>
                                         <constraint firstItem="DgC-up-jnw" firstAttribute="top" secondItem="rND-hp-OzI" secondAttribute="top" constant="5" id="awT-0V-SHi"/>
@@ -193,10 +309,10 @@
                     </constraints>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64I-AL-1az" customClass="UIViewDesignable" customModule="Snake_Ladder" customModuleProvider="target">
-                    <rect key="frame" x="5" y="233" width="383" height="431"/>
+                    <rect key="frame" x="5" y="288" width="383" height="376"/>
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eow-Oo-0JR">
-                            <rect key="frame" x="5" y="5" width="373" height="421"/>
+                            <rect key="frame" x="5" y="5" width="373" height="366"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="XXl-NT-vcH">
                                 <size key="itemSize" width="128" height="128"/>
@@ -206,7 +322,7 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                     </subviews>
-                    <color key="backgroundColor" name="diceContViewBgColor"/>
+                    <color key="backgroundColor" name="Primary"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="eow-Oo-0JR" secondAttribute="trailing" constant="5" id="MV8-6B-ObQ"/>
                         <constraint firstItem="eow-Oo-0JR" firstAttribute="leading" secondItem="64I-AL-1az" secondAttribute="leading" constant="5" id="NlM-lS-zd3"/>
@@ -245,7 +361,7 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="diceBgColor"/>
+                                                    <color key="backgroundColor" name="Secondary"/>
                                                     <constraints>
                                                         <constraint firstItem="OTo-f2-Ne1" firstAttribute="leading" secondItem="yyc-rm-TiT" secondAttribute="leading" constant="4" id="10T-2y-gtK"/>
                                                         <constraint firstAttribute="trailing" secondItem="OTo-f2-Ne1" secondAttribute="trailing" constant="4" id="4N8-VK-Y1g"/>
@@ -271,7 +387,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" name="diceContViewBgColor"/>
+                                    <color key="backgroundColor" name="Primary"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="zxB-ne-BN5" secondAttribute="bottom" constant="5" id="8dP-vE-gCG"/>
                                         <constraint firstAttribute="trailing" secondItem="zxB-ne-BN5" secondAttribute="trailing" constant="5" id="E9N-9p-XSd"/>
@@ -305,7 +421,7 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="diceBgColor"/>
+                                                    <color key="backgroundColor" name="Secondary"/>
                                                     <constraints>
                                                         <constraint firstItem="5e9-8M-77g" firstAttribute="leading" secondItem="iQd-Vc-pnJ" secondAttribute="leading" constant="4" id="1DW-rU-RZm"/>
                                                         <constraint firstItem="lN1-XQ-LvH" firstAttribute="leading" secondItem="iQd-Vc-pnJ" secondAttribute="leading" id="6Wa-62-vJh"/>
@@ -331,7 +447,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" name="diceContViewBgColor"/>
+                                    <color key="backgroundColor" name="Primary"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="a1N-2e-qXY" secondAttribute="bottom" constant="5" id="3Ee-qi-fv7"/>
                                         <constraint firstItem="a1N-2e-qXY" firstAttribute="top" secondItem="SFM-Uk-miQ" secondAttribute="top" constant="5" id="GLM-Xj-7kK"/>
@@ -362,13 +478,15 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="OLm-DE-M4j" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="7mX-Lt-Scw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XlX-kx-mYo" secondAttribute="trailing" constant="10" id="6zF-S9-8bG"/>
                 <constraint firstItem="Zqd-1y-3dd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="8Hw-tP-doR"/>
                 <constraint firstItem="64I-AL-1az" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="FAH-N1-RB6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="OLm-DE-M4j" secondAttribute="trailing" constant="10" id="K3o-MQ-zs8"/>
                 <constraint firstItem="OLm-DE-M4j" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="KMR-9Z-Ck3"/>
                 <constraint firstAttribute="bottom" secondItem="5Vx-Je-hC7" secondAttribute="bottom" id="PWx-d7-mqq"/>
+                <constraint firstItem="XlX-kx-mYo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="RAa-Vr-5hv"/>
                 <constraint firstItem="Zqd-1y-3dd" firstAttribute="top" secondItem="64I-AL-1az" secondAttribute="bottom" constant="10" id="VVo-YI-QkF"/>
+                <constraint firstItem="XlX-kx-mYo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="a7S-uC-ePC"/>
                 <constraint firstItem="5Vx-Je-hC7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="daE-DG-NmZ"/>
                 <constraint firstItem="64I-AL-1az" firstAttribute="top" secondItem="OLm-DE-M4j" secondAttribute="bottom" constant="10" id="fLJ-iv-nOt"/>
                 <constraint firstAttribute="trailing" secondItem="Zqd-1y-3dd" secondAttribute="trailing" constant="10" id="gZF-nh-68m"/>
@@ -376,17 +494,24 @@
                 <constraint firstAttribute="trailing" secondItem="5Vx-Je-hC7" secondAttribute="trailing" id="onC-hA-6sd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Zqd-1y-3dd" secondAttribute="bottom" constant="10" id="qRI-rn-ogK"/>
                 <constraint firstItem="5Vx-Je-hC7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="t50-or-5kO"/>
+                <constraint firstItem="OLm-DE-M4j" firstAttribute="top" secondItem="XlX-kx-mYo" secondAttribute="bottom" constant="10" id="zCa-00-6cu"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="154"/>
+            <point key="canvasLocation" x="138.1679389312977" y="153.52112676056339"/>
         </view>
     </objects>
     <resources>
-        <image name="boardBgImg" width="2298" height="4096"/>
-        <namedColor name="diceBgColor">
+        <image name="Logo1" width="1536" height="1024"/>
+        <image name="boardBgImg" width="1320" height="2868"/>
+        <image name="home" width="72" height="72"/>
+        <image name="resetGame" width="72" height="72"/>
+        <namedColor name="Primary">
+            <color red="0.69800001382827759" green="0.52899998426437378" blue="0.25499999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Secondary">
             <color red="0.34099999070167542" green="0.25900000333786011" blue="0.12200000137090683" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="diceContViewBgColor">
-            <color red="0.69800001382827759" green="0.52899998426437378" blue="0.25499999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Tertiary">
+            <color red="0.83899998664855957" green="0.76099997758865356" blue="0.53700000047683716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

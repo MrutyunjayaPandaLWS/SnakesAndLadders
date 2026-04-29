@@ -45,7 +45,7 @@ class GameMainVC: UIViewController {
     // MARK: - Game State
     
     var currentPlayerIndex = 0
-    var playerPositions = [1, 1, 1, 1]
+    var playerPositions: [Int] = []
     var playerTokens: [UIView] = []
     private var gameFinished = false
     
@@ -209,23 +209,6 @@ extension GameMainVC {
         }
     }
     
-//    func setupTokens() {
-//        let colors: [UIColor] = [
-//            UIColor(red: 0.92, green: 0.22, blue: 0.22, alpha: 1),
-//            UIColor(red: 0.18, green: 0.45, blue: 0.92, alpha: 1),
-//            UIColor(red: 0.98, green: 0.82, blue: 0.22, alpha: 1),
-//            UIColor(red: 0.18, green: 0.78, blue: 0.34, alpha: 1)
-//        ]
-//        // Only create tokens for active players
-//        for i in 0..<activePlayerCount {
-//            let pawn = PawnView(color: colors[i])
-//            pawn.bounds = CGRect(x: 0, y: 0, width: 22, height: 28)
-//            boardBg_View.addSubview(pawn)
-//            playerTokens.append(pawn)
-//        }
-//        boardBg_View.bringSubviewToFront(snakeLadderOverlay)
-//        playerTokens.forEach { boardBg_View.bringSubviewToFront($0) }
-//    }
     
     func setupTokens() {
         playerTokens.removeAll()
@@ -237,7 +220,8 @@ extension GameMainVC {
             imageView.image = UIImage(named: imageName)
             imageView.contentMode = .scaleAspectFit
 
-            imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            imageView.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            imageView.transform = .identity
 
             boardBg_View.addSubview(imageView)
             playerTokens.append(imageView)
@@ -245,6 +229,8 @@ extension GameMainVC {
 
         boardBg_View.bringSubviewToFront(snakeLadderOverlay)
         playerTokens.forEach { boardBg_View.bringSubviewToFront($0) }
+        
+        playerPositions = Array(repeating: 1, count: activePlayerCount)
     }
 }
 
@@ -290,13 +276,95 @@ extension GameMainVC {
         }
     }
     
+//    func layoutTokensAtCurrentPositions() {
+//        guard board_CV.bounds.width > 0, !playerTokens.isEmpty else { return }
+//        for i in 0..<playerTokens.count {
+//            let n = playerPositions[i]
+//            playerTokens[i].center = centerForBoardNumber(n, playerIndex: i)
+//        }
+//    }
+    
     func layoutTokensAtCurrentPositions() {
-        guard board_CV.bounds.width > 0, !playerTokens.isEmpty else { return }
-        for i in 0..<playerTokens.count {
-            let n = playerPositions[i]
-            playerTokens[i].center = centerForBoardNumber(n, playerIndex: i)
+        guard board_CV.bounds.width > 0 else { return }
+
+        // Group players by cell
+        var cellMap: [Int: [Int]] = [:]
+
+        for (index, pos) in playerPositions.enumerated() {
+            guard index < playerTokens.count else { continue }
+            cellMap[pos, default: []].append(index)
+        }
+
+        let cellSize = self.cellSize()
+
+        for (cell, players) in cellMap {
+
+            let center = centerForBoardNumber(cell)
+            let count = players.count
+
+            for (i, playerIndex) in players.enumerated() {
+                guard playerIndex < playerTokens.count else { continue }
+                let token = playerTokens[playerIndex]
+
+                var targetCenter = center
+                var scale: CGFloat = 1.0
+
+                switch count {
+
+                case 1:
+                    // 👤 Single → full size center
+                    scale = 1.0
+
+                case 2:
+                    // 👥 Side by side
+                    let offset: CGFloat = cellSize.width * 0.18
+                    targetCenter.x += (i == 0 ? -offset : offset)
+                    scale = 0.75
+
+                case 3:
+                    // 🔺 Triangle layout
+                    let offset: CGFloat = cellSize.width * 0.2
+
+                    if i == 0 {
+                        targetCenter.y -= offset
+                    } else if i == 1 {
+                        targetCenter.x -= offset
+                        targetCenter.y += offset * 0.6
+                    } else {
+                        targetCenter.x += offset
+                        targetCenter.y += offset * 0.6
+                    }
+                    scale = 0.65
+
+                case 4:
+                    // ⬛ 4 corners
+                    let offset: CGFloat = cellSize.width * 0.22
+
+                    let positions: [CGPoint] = [
+                        CGPoint(x: -offset, y: -offset),
+                        CGPoint(x:  offset, y: -offset),
+                        CGPoint(x: -offset, y:  offset),
+                        CGPoint(x:  offset, y:  offset)
+                    ]
+
+                    targetCenter.x += positions[i].x
+                    targetCenter.y += positions[i].y
+                    scale = 0.6
+
+                default:
+                    break
+                }
+
+                // Animate movement + scaling
+                UIView.animate(withDuration: 0.25) {
+                    token.center = targetCenter
+                    token.transform = CGAffineTransform(scaleX: scale, y: scale)
+                }
+            }
         }
     }
+    
+    
 }
 
 // MARK: - Board Coordinate Helpers
@@ -326,21 +394,32 @@ extension GameMainVC {
         return (rowTop, col)
     }
     
-    func centerForBoardNumber(_ number: Int, playerIndex: Int) -> CGPoint {
+//    func centerForBoardNumber(_ number: Int, playerIndex: Int) -> CGPoint {
+//        let (rowTop, col) = rowColFromTop(for: number)
+//        let size = cellSize()
+//        let x = CGFloat(col) * (size.width + gridSpacing) + size.width / 2
+//        let y = CGFloat(rowTop) * (size.height + gridSpacing) + size.height / 2
+//        let ptInCV = CGPoint(x: x, y: y)
+//        let offsets: [CGPoint] = [
+//            CGPoint(x: -7, y: -7),
+//            CGPoint(x:  7, y: -7),
+//            CGPoint(x: -7, y:  7),
+//            CGPoint(x:  7, y:  7)
+//        ]
+//        let o = offsets[playerIndex]
+//        let converted = board_CV.convert(ptInCV, to: boardBg_View)
+//        return CGPoint(x: converted.x + o.x, y: converted.y + o.y)
+//    }
+    
+    func centerForBoardNumber(_ number: Int) -> CGPoint {
         let (rowTop, col) = rowColFromTop(for: number)
         let size = cellSize()
+
         let x = CGFloat(col) * (size.width + gridSpacing) + size.width / 2
         let y = CGFloat(rowTop) * (size.height + gridSpacing) + size.height / 2
+
         let ptInCV = CGPoint(x: x, y: y)
-        let offsets: [CGPoint] = [
-            CGPoint(x: -7, y: -7),
-            CGPoint(x:  7, y: -7),
-            CGPoint(x: -7, y:  7),
-            CGPoint(x:  7, y:  7)
-        ]
-        let o = offsets[playerIndex]
-        let converted = board_CV.convert(ptInCV, to: boardBg_View)
-        return CGPoint(x: converted.x + o.x, y: converted.y + o.y)
+        return board_CV.convert(ptInCV, to: boardBg_View)
     }
     
     func resolveChain(from start: Int) -> Int {
@@ -384,7 +463,7 @@ extension GameMainVC {
         updateActivePlayerUI()
 
         let diceValue = Int.random(in: 1...6)
-//        let diceValue = 2
+//        let diceValue = 3
         loadGif(into: imageView, name: "dice\(diceValue).gif")
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -468,7 +547,7 @@ extension GameMainVC {
         var stepIndex = 0
         func next() {
             let num   = path[stepIndex]
-            let point = self.centerForBoardNumber(num, playerIndex: index)
+            let point = self.centerForBoardNumber(num)
 
             UIView.animate(withDuration: stepDuration,
                            delay: 0,
@@ -523,8 +602,8 @@ extension GameMainVC {
             let (from, to) = jumps[jumpIdx]
             let isLadder = ladders[from] == to
 
-            let fromPt = centerForBoardNumber(from, playerIndex: index)
-            let toPt   = centerForBoardNumber(to,   playerIndex: index)
+            let fromPt = centerForBoardNumber(from)
+            let toPt   = centerForBoardNumber(to)
 
             // ✅ Distance-based animation
             let distance = hypot(toPt.x - fromPt.x, toPt.y - fromPt.y)
@@ -635,5 +714,25 @@ extension GameMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         } else {
             return rowFromBottom * 10 + (9 - col) + 1
         }
+    }
+}
+
+extension GameMainVC{
+    // MARK: - Index Mapping
+
+    func indexFromBoardNumber(_ number: Int) -> Int {
+        let rowFromBottom = (number - 1) / 10
+        let colInRow = (number - 1) % 10
+
+        let rowFromTop = 9 - rowFromBottom
+
+        let col: Int
+        if rowFromBottom % 2 == 0 {
+            col = colInRow
+        } else {
+            col = 9 - colInRow
+        }
+
+        return rowFromTop * 10 + col
     }
 }

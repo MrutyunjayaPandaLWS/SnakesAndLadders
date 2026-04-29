@@ -73,7 +73,8 @@ final class BoardSnakeLadderOverlayView: UIView {
         let cellW = (bounds.width - gridSpacing * 9) / 10
 
         // 🔥 IMPORTANT: Use FIXED width (not aspect ratio)
-        let imgW = cellW * 1.1
+        let imgW = cellW * 0.9
+//        let imgW = cellW * 1.1
         let imgH = distance
 
         let iv = UIImageView(image: image)

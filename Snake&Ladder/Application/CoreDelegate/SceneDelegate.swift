@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let gameVC = DashboardVC()
         
         let nav = UINavigationController(rootViewController: gameVC)
-        
+        nav.navigationBar.isHidden = true
         window.rootViewController = nav
         self.window = window
         window.makeKeyAndVisible()
